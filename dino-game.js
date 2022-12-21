@@ -32,7 +32,6 @@ for (const imageName of imageNames) {
   game.image[imageName].onload = () => {
     imageLoadCounter += 1;
     if (imageLoadCounter === imageNames.length) {
-      console.log('画像のロードが完了しました。');
       init();
     }
   }
@@ -369,7 +368,6 @@ addEventListener('keydown', (event) => {
     game.dino.moveY = -27;
     game.jumpSound.currentTime = 0;
     game.jumpSound.play();
-    console.log('1111');
   } else if (event.key === ' ' && !event.repeat
     && !(game.dino.moveY === 0) && spaceCounter === 1
     && game.state === 'gaming') {
@@ -379,7 +377,6 @@ addEventListener('keydown', (event) => {
     game.dino.moveY = -26;
     game.jumpSound.currentTime = 0;
     game.jumpSound.play();
-    console.log('222222222');
     spaceCounter = 0;
   } else {
     setTimeout(() => { spaceCounter = 0; }, 600);
