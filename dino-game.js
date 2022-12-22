@@ -80,7 +80,6 @@ function startHardMode() {
   game.difficulty = 50;
 }
 
-let jumpFlag = null;
 function ticker() {
   // 画面クリア
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -113,7 +112,7 @@ function ticker() {
   game.enemyCountdown -= 0.5;
 
   // クリアしたかどうか
-  if (game.score >= 1500) clear();
+  if (game.score >= 1200) clear();
 }
 
 function tickerHardMode() {
@@ -148,7 +147,7 @@ function tickerHardMode() {
   game.enemyCountdown -= 1;
 
   // クリアしたかどうか
-  if (game.score >= 2000) clear();
+  if (game.score >= 1700) clear();
 }
 
 function createDino() {
