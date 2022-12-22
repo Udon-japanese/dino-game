@@ -43,6 +43,9 @@ function init() {
   game.enemyCountdown = 0;
   game.score = 0;
   game.state = 'init';
+  // クリア・失敗のBGMの初期化
+  game.failedBgm.currentTime = 0;
+  game.clearBgm.currentTime = 0;
   // 画面クリア
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // 恐竜の表示
