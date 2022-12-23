@@ -100,7 +100,6 @@ function ticker() {
   drawBackGrounds(); // 背景の描画
   drawDino(); // 恐竜の描画
   drawEnemies(); // 敵キャラクターの移動
-  drawScore(); // スコアの描画
   if (game.score <= 200) drawHowToQuit();// ゲーム中止方法の描画
 
   // あたり判定
@@ -135,7 +134,6 @@ function tickerHardMode() {
   drawBackGrounds(); // 背景の描画
   drawDino(); // 恐竜の描画
   drawEnemies(); // 敵キャラクターの移動
-  drawScore(); // スコアの描画
   if (game.score <= 500) drawHowToQuit();// ゲーム中止方法の描画
 
   // あたり判定
@@ -284,13 +282,6 @@ function drawHowToQuit() {
   ctx.fillStyle = 'black';
   ctx.font = 'bold 15px serif';
   ctx.fillText(`[ q ] - Stop playing the game.`, 500, 20);
-}
-
-function drawScore() {
-  if (game.state === 'clear') return;
-  ctx.fillStyle = 'black';
-  ctx.font = '24px serif';
-  ctx.fillText(`score: ${Math.floor(game.score)}`, 0, 30);
 }
 
 function drawEndText() {
