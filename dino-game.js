@@ -287,6 +287,7 @@ function drawHowToQuit() {
 }
 
 function drawScore() {
+  if (game.state === 'clear') return;
   ctx.fillStyle = 'black';
   ctx.font = '24px serif';
   ctx.fillText(`score: ${Math.floor(game.score)}`, 0, 30);
