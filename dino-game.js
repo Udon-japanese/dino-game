@@ -43,9 +43,6 @@ function init() {
   game.enemyCountdown = 0;
   game.score = 0;
   game.state = 'init';
-  // クリア・失敗のBGMの初期化
-  game.failedBgm.currentTime = 0;
-  game.clearBgm.currentTime = 0;
   // 画面クリア
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // 恐竜の表示
@@ -306,21 +303,28 @@ function hitCheck() {
     if (Math.abs(game.dino.x - enemy.x) < game.dino.width * 0.8 / 2 + enemy.width * 0.9 / 2 &&
       Math.abs(game.dino.y - enemy.y) < game.dino.height * 0.5 / 2 + enemy.height * 0.9 / 2
     ) {
-      game.failedBgm.play();
-      game.state = 'gameover';
-      game.gamingBgm.pause();
-      game.gamingBgmHard.pause();
-      ctx.fillStyle = 'black';
-      ctx.font = 'bold 100px serif';
-      ctx.fillText(`Game Over!`, 150, 200);
-      drawEndText();
-      game.isPlayed = true;
-      clearInterval(game.timer);
+      new Promise(resolve => {
+        game.failedBgm.play();
+        game.state = 'gameover';
+        game.gamingBgm.pause();
+        game.gamingBgmHard.pause();
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 100px serif';
+        ctx.fillText(`Game Over!`, 150, 200);
+        drawEndText();
+        game.isPlayed = true;
+        clearInterval(game.timer);
+        resolve();
+      })
+      .then(() => {
+        game.failedBgm.currentTime = 0;
+      })
     }
   }
 }
 
 function clear() {
+  new Promise(resolve => {
     game.clearBgm.play();
     game.state = 'clear'
     game.gamingBgm.pause();
@@ -331,14 +335,19 @@ function clear() {
     drawEndText();
     game.isPlayed = true;
     clearInterval(game.timer);
+    resolve();
+  })
+  .then(() => {
+    game.clearBgm.currentTime = 0;
+  })
 }
 
 // ゲーム進行に関わるキー押下の処理
 addEventListener('keydown', (event) => {
   if (event.key === ' ' && game.state === 'init') start();
   if ((event.key === 'h' || event.key === 'H') && game.state === 'init') startHardMode();
-  if (event.key === 'Enter' && game.state === 'gameover' && game.isPlayed) init();
-  if (event.key === 'Enter' && game.state === 'clear' && game.isPlayed) init();
+  if (event.key === 'Enter' && game.state === 'gameover') init();
+  if (event.key === 'Enter' && game.state === 'clear') init();
   if ((event.key === 'q' || event.key === 'Q') && game.state === 'gaming') quitAndInit();
 });
 
